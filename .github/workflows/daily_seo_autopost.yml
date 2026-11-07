@@ -1,0 +1,35 @@
+name: Daily SEO Auto-Poster (Dev.to & GitHub Market Signals)
+
+on:
+  schedule:
+    # Runs automatically once every 2 days at 14:00 UTC (optimal US morning traffic window & avoids spam limits)
+    - cron: '0 14 */2 * *'
+  workflow_dispatch: # Lets you click "Run workflow" manually anytime!
+
+permissions:
+  contents: write
+
+jobs:
+  publish-seo-digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Daily SEO Auto-Publisher
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: python auto_publish_seo.py
+
+      - name: Commit Daily Market Signals Report to GitHub
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add LATEST_MARKET_SIGNALS.md
+          git diff --staged --quiet || git commit -m "chore(seo): automated market signals & API digest update"
+          git push
