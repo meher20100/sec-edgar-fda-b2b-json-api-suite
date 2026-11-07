@@ -1,4 +1,3 @@
-```python
 """
 Quickstart script for the Mehdad DataLabs SEC EDGAR, FDA & B2B Intelligence API Suite.
 Full portfolio: https://apify.com/mehdad-datalabs
