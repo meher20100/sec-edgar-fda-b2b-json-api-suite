@@ -17,7 +17,7 @@ ACTORS_ROTATION = [
         "topic": "CEO & CFO Insider Stock Trading (SEC Form 4 XML)",
         "tags": ["python", "finance", "api", "ai"],
         "tickers": ["NVDA", "AAPL", "MSFT", "PLTR", "TSLA"],
-        "use_case": "tracking real-time C-suite open-market stock purchases (Code P) and sales (Code S)",
+        "use_case": "tracking real-time C-suite open-market stock purchases (Code P) and sales (Code S) before retail news coverage",
     },
     {
         "slug": "sec-13f-institutional-holdings-hedge-fund-whale-scraper",
@@ -25,7 +25,7 @@ ACTORS_ROTATION = [
         "topic": "Institutional Hedge Fund & Whale Portfolio Filings (SEC Form 13F-HR)",
         "tags": ["finance", "python", "api", "data"],
         "tickers": ["BRK-A", "BLK", "NVDA", "MSFT"],
-        "use_case": "extracting quarterly institutional holdings, CUSIPs, portfolio weights (%), and Put/Call options",
+        "use_case": "extracting quarterly institutional holdings, CUSIPs, portfolio weights (%), and Put/Call option positions",
     },
     {
         "slug": "sec-8k-corporate-events-ma-executive-change-scraper",
@@ -91,6 +91,86 @@ ACTORS_ROTATION = [
         "tickers": ["TSM", "ASML", "NVO", "BABA"],
         "use_case": "tracking TSMC monthly wafer revenue, ASML earnings, and Novo Nordisk updates on Forms 20-F and 6-K",
     },
+    {
+        "slug": "us-federal-government-contract-awards-dod-b2b-scraper",
+        "name": "US Federal Government Contract Awards & DoD B2B Lead Scraper",
+        "topic": "Pentagon (DoD) & US Federal Government Contract Winners (GovCon API)",
+        "tags": ["govtech", "b2b", "api", "python"],
+        "tickers": ["PLTR", "LMT", "BAH", "LDOS"],
+        "use_case": "identifying newly funded defense, AI, and cybersecurity federal contractors for B2B subcontracting outreach",
+    },
+    {
+        "slug": "fda-drug-approvals-biotech-catalyst-pharma-b2b-scraper",
+        "name": "FDA Drug Approvals, NDA/BLA Biotech Catalyst & Pharma API",
+        "topic": "US FDA New Drug (NDA) & Biologics (BLA) Biotech Catalysts",
+        "tags": ["biotech", "healthcare", "api", "python"],
+        "tickers": ["LLY", "NVO", "PFE", "VRTX"],
+        "use_case": "tracking FDA NDA, BLA, and ANDA drug approvals, Priority Review designations, and pharma sponsors",
+    },
+    {
+        "slug": "clinical-trials-biotech-catalyst-cro-b2b-lead-scraper",
+        "name": "ClinicalTrials.gov Phase 1-3 Biotech Catalyst & B2B Lead API",
+        "topic": "Phase 1, 2 & 3 Clinical Trial Readout Catalysts & CRO B2B Leads",
+        "tags": ["biotech", "healthcare", "python", "api"],
+        "tickers": ["LLY", "MRNA", "VRTX", "REGN"],
+        "use_case": "extracting active recruiting clinical trials, primary completion readout dates, and study contact emails/phones",
+    },
+    {
+        "slug": "fda-510k-medical-device-clearances-medtech-b2b-scraper",
+        "name": "FDA 510(k) Medical Device Clearances & MedTech B2B Lead API",
+        "topic": "US FDA 510(k) Medical Device Clearances & MedTech B2B Contacts",
+        "tags": ["medtech", "healthcare", "api", "python"],
+        "tickers": ["ISRG", "MDT", "ABT", "SYK"],
+        "use_case": "capturing newly cleared medical devices along with the MedTech Applicant Company Name and Contact Person",
+    },
+    {
+        "slug": "fda-product-recalls-safety-enforcement-b2b-scraper",
+        "name": "FDA Drug, Device & Food Recall Enforcement & Legal Lead API",
+        "topic": "FDA Class I, II & III Product Recalls & Mass-Tort Litigation Leads",
+        "tags": ["healthcare", "legaltech", "api", "python"],
+        "tickers": ["ABT", "BAX", "MDT", "PFE"],
+        "use_case": "monitoring critical Class I medical device, pharmaceutical, and food safety recalls for law firms and QA teams",
+    },
+    {
+        "slug": "us-doctor-dentist-clinic-healthcare-b2b-lead-scraper",
+        "name": "US Doctor, Dentist & Medical Clinic B2B Lead Scraper API",
+        "topic": "Verified US Doctors, Dentists & Medical Clinics B2B Lead Generation (CMS NPI)",
+        "tags": ["b2b", "healthcare", "api", "python"],
+        "tickers": ["UNH", "HCA", "CVS", "ELV"],
+        "use_case": "extracting NPI-2 dental and medical clinics with Clinic Owner / Authorized Official names and direct phones",
+    },
+    {
+        "slug": "us-pharmacy-medical-lab-dme-b2b-lead-scraper",
+        "name": "US Pharmacy, Clinical Lab & Medical Supply B2B Lead API",
+        "topic": "Independent US Pharmacies, Diagnostic Labs & DME Suppliers B2B Leads",
+        "tags": ["b2b", "healthcare", "python", "api"],
+        "tickers": ["MCK", "COR", "CAH", "LH"],
+        "use_case": "building verified outbound lists of independent pharmacies and clinical labs with Owner direct phones",
+    },
+    {
+        "slug": "fdic-us-bank-directory-deposits-assets-b2b-scraper",
+        "name": "FDIC US Bank Directory, Deposits, Assets & B2B Lead API",
+        "topic": "US Commercial & Community Bank Directory, Assets, Deposits & ROA/ROE",
+        "tags": ["fintech", "banking", "api", "python"],
+        "tickers": ["JPM", "BAC", "WFC", "C"],
+        "use_case": "filtering every FDIC-insured community and regional bank by total assets ($), deposits ($), and ROA/ROE %",
+    },
+    {
+        "slug": "cfpb-fintech-bank-consumer-complaint-b2b-scraper",
+        "name": "CFPB Fintech & Bank Consumer Complaint Intelligence API",
+        "topic": "Fintech, Crypto & Bank Consumer Complaint & Regulatory Risk Intelligence",
+        "tags": ["fintech", "crypto", "api", "python"],
+        "tickers": ["COIN", "HOOD", "PYPL", "SOFI"],
+        "use_case": "tracking consumer fraud, account-freeze disputes, and regulatory risk disclosures across fintechs and banks",
+    },
+    {
+        "slug": "us-public-company-b2b-profile-sic-hq-phone-scraper",
+        "name": "US Public Company B2B Directory, SIC & HQ Phone API",
+        "topic": "US Public Company B2B CRM Enrichment (Corporate HQ Phone, EIN Tax ID & SIC)",
+        "tags": ["b2b", "api", "python", "automation"],
+        "tickers": ["NVDA", "AAPL", "MSFT", "PLTR", "CRM"],
+        "use_case": "enriching NYSE and Nasdaq enterprise accounts in Clay or n8n with verified Corporate HQ phones, EINs, and SIC codes",
+    },
 ]
 
 
@@ -143,26 +223,33 @@ def fetch_live_sec_sample(tickers: list[str]) -> list[dict]:
     return rows
 
 
-def build_github_report(actor: dict, live_rows: list[dict], today_str: str) -> tuple[str, str]:
-    title = f"How to Automate {actor['topic']} in Python, n8n & Claude MCP ({today_str})"
+def build_article(day_index: int, live_rows: list[dict], today_str: str) -> tuple[str, str, str]:
+    actor = ACTORS_ROTATION[day_index]
+    rel_1 = ACTORS_ROTATION[(day_index + 1) % len(ACTORS_ROTATION)]
+    rel_2 = ACTORS_ROTATION[(day_index + 2) % len(ACTORS_ROTATION)]
+
+    title = f"Automating {actor['topic']} in Python & Claude MCP ({today_str})"
 
     table_lines = [
-        "| Ticker | Company Name | Industry / SIC | Latest SEC Form | Filing Date | SEC Archive Link |",
-        "| :--- | :--- | :--- | :--- | :--- | :--- |",
+        "| Ticker | Company Name | Industry / SIC | Latest SEC Form | Filing Date |",
+        "| :--- | :--- | :--- | :--- | :--- |",
     ]
     for r in live_rows:
         table_lines.append(
-            f"| `{r['ticker']}` | {r['company']} | {r['industry']} | `{r['form']}` | {r['date']} | [View Filing]({r['url']}) |"
+            f"| `{r['ticker']}` | {r['company']} | {r['industry']} | `{r['form']}` | {r['date']} |"
         )
     live_table_md = "\n".join(table_lines) if len(table_lines) > 2 else "*Live SEC EDGAR feed active.*"
 
-    body = f"""Extracting and normalizing **{actor['topic']}** is a high-value pipeline for quantitative researchers and B2B engineers—especially for **{actor['use_case']}**.
+    # Safe, anti-spam Dev.to body (only 3 relevant links so Dev.to never flags the account!)
+    devto_body = f"""Extracting and normalizing **{actor['topic']}** is one of the highest-leverage data pipelines for quantitative researchers, B2B growth engineers, and AI agent builders—especially for **{actor['use_case']}**.
 
-Instead of writing custom XML/XBRL parsers, you can pull structured JSON or CSV datasets in seconds using the **[{actor['name']}](https://apify.com/mehdad-datalabs/{actor['slug']})**.
+Instead of maintaining fragile local XSLT/XML parsers or proxy networks, you can pull structured **JSON, CSV, or Excel** datasets in seconds using the **[{actor['name']}](https://apify.com/mehdad-datalabs/{actor['slug']})**.
 
 ---
 
-## Live SEC EDGAR Snapshot ({today_str})
+## Live SEC EDGAR Activity Snapshot ({today_str})
+
+Here is a live sample of recent regulatory activity across tracked benchmark tickers (`{', '.join(actor['tickers'])}`):
 
 {live_table_md}
 
@@ -170,18 +257,75 @@ Instead of writing custom XML/XBRL parsers, you can pull structured JSON or CSV 
 
 ## Python Quickstart (`apify-client`)
 
+Install the official Python SDK:
+
+    pip install apify-client pandas
+
+Run the endpoint and load the clean records into a Pandas DataFrame:
+
     from apify_client import ApifyClient
     import pandas as pd
 
     client = ApifyClient("YOUR_APIFY_API_TOKEN")
+
+    # Run the Actor with default or custom parameters
     run = client.actor("mehdad-datalabs/{actor['slug']}").call()
+
+    # Load structured JSON results into Pandas
     df = pd.DataFrame(client.dataset(run["defaultDatasetId"]).list_items().items)
     print(df.head())
 
-- **Live API Endpoint:** [https://apify.com/mehdad-datalabs/{actor['slug']}](https://apify.com/mehdad-datalabs/{actor['slug']})
-- **Full 20-API GitHub SDK:** [https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite](https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite)
+---
+
+## Related Open-Data Tutorials & SDK
+
+- **Related API 1:** [{rel_1['name']}](https://apify.com/mehdad-datalabs/{rel_1['slug']})
+- **Related API 2:** [{rel_2['name']}](https://apify.com/mehdad-datalabs/{rel_2['slug']})
+- **Open-Source Python SDK & 20-API Directory on GitHub:** [https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite](https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite)
 """
-    return title, body
+
+    # Full 20-link report for GitHub LATEST_MARKET_SIGNALS.md
+    all_links = "\n".join(
+        [f"- [{a['name']}](https://apify.com/mehdad-datalabs/{a['slug']})" for a in ACTORS_ROTATION]
+    )
+    github_body = f"{devto_body}\n---\n\n## Complete 20-API Directory\n\n{all_links}\n"
+
+    return title, devto_body, github_body
+
+
+def publish_to_devto(title: str, body: str, tags: list[str]) -> str:
+    if not DEVTO_API_KEY:
+        print("No DEVTO_API_KEY set. Skipping Dev.to API call.")
+        return ""
+
+    payload = json.dumps({
+        "article": {
+            "title": title[:125],
+            "published": True,
+            "body_markdown": body,
+            "tags": tags[:4],
+        }
+    }).encode("utf-8")
+
+    req = urllib.request.Request(
+        "https://dev.to/api/articles",
+        data=payload,
+        headers={
+            "Content-Type": "application/json",
+            "api-key": DEVTO_API_KEY,
+            "User-Agent": "MehdadDataLabsSeoBot/1.0",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            res_data = json.loads(resp.read().decode("utf-8"))
+            url = res_data.get("url", "")
+            print(f"Successfully published to Dev.to: {url}")
+            return url
+    except Exception as e:
+        print(f"Dev.to publish warning: {e}")
+        return ""
 
 
 def main():
@@ -191,11 +335,15 @@ def main():
     today_str = today.strftime("%b %d, %Y")
 
     live_rows = fetch_live_sec_sample(featured_actor["tickers"])
-    title, body = build_github_report(featured_actor, live_rows, today_str)
+    title, devto_body, github_body = build_article(day_index, live_rows, today_str)
 
-    # Save directly to GitHub (100% immune to third-party spam filters & indexed by Google!)
+    devto_url = publish_to_devto(title, devto_body, featured_actor["tags"])
+
     with open("LATEST_MARKET_SIGNALS.md", "w", encoding="utf-8") as f:
-        f.write(f"# {title}\n\n{body}")
+        f.write(f"# {title}\n\n")
+        if devto_url:
+            f.write(f"**Read on Dev.to:** [{devto_url}]({devto_url})\n\n")
+        f.write(github_body)
     print("Updated LATEST_MARKET_SIGNALS.md successfully.")
 
 
