@@ -230,63 +230,71 @@ def build_article(day_index: int, live_rows: list[dict], today_str: str) -> tupl
 
     title = f"Automating {actor['topic']} in Python & Claude MCP ({today_str})"
 
-    table_lines = [
-        "| Ticker | Company Name | Industry / SIC | Latest SEC Form | Filing Date |",
-        "| :--- | :--- | :--- | :--- | :--- |",
-    ]
-    for r in live_rows:
-        table_lines.append(
-            f"| `{r['ticker']}` | {r['company']} | {r['industry']} | `{r['form']}` | {r['date']} |"
+    # Medium- & Dev.to-compatible numbered paragraphs (Medium importer never strips numbered paragraphs!)
+    snapshot_lines = []
+    for idx, r in enumerate(live_rows, 1):
+        snapshot_lines.append(
+            f"**{idx}. {r['company']} ({r['ticker']})** — Industry: {r['industry']} | Latest Filing: Form {r['form']} (Filed: {r['date']})"
         )
-    live_table_md = "\n".join(table_lines) if len(table_lines) > 2 else "*Live SEC EDGAR feed active.*"
+    live_snapshot_md = "\n\n".join(snapshot_lines) if snapshot_lines else "Live SEC EDGAR feed active."
 
-    # Safe, anti-spam Dev.to body (only 3 relevant links so Dev.to never flags the account!)
+    fence = "```"
     devto_body = f"""Extracting and normalizing **{actor['topic']}** is one of the highest-leverage data pipelines for quantitative researchers, B2B growth engineers, and AI agent builders—especially for **{actor['use_case']}**.
 
-Instead of maintaining fragile local XSLT/XML parsers or proxy networks, you can pull structured **JSON, CSV, or Excel** datasets in seconds using the **[{actor['name']}](https://apify.com/mehdad-datalabs/{actor['slug']})**.
+Instead of maintaining fragile local XSLT/XML parsers or proxy networks, you can pull structured **JSON, CSV, or Excel** datasets in seconds using the **[{actor['name']}](https://apify.com/mehdad-datalabs/{actor['slug']})** by **Mehdad DataLabs**.
 
 ---
 
 ## Live SEC EDGAR Activity Snapshot ({today_str})
 
-Here is a live sample of recent regulatory activity across tracked benchmark tickers (`{', '.join(actor['tickers'])}`):
+Here is a live sample of recent regulatory activity across tracked benchmark tickers ({', '.join(actor['tickers'])}):
 
-{live_table_md}
-
----
-
-## Python Quickstart (`apify-client`)
-
-Install the official Python SDK:
-
-    pip install apify-client pandas
-
-Run the endpoint and load the clean records into a Pandas DataFrame:
-
-    from apify_client import ApifyClient
-    import pandas as pd
-
-    client = ApifyClient("YOUR_APIFY_API_TOKEN")
-
-    # Run the Actor with default or custom parameters
-    run = client.actor("mehdad-datalabs/{actor['slug']}").call()
-
-    # Load structured JSON results into Pandas
-    df = pd.DataFrame(client.dataset(run["defaultDatasetId"]).list_items().items)
-    print(df.head())
+{live_snapshot_md}
 
 ---
 
-## Related Open-Data Tutorials & SDK
+## Quickstart: Run This API in Python (apify-client)
 
-- **Related API 1:** [{rel_1['name']}](https://apify.com/mehdad-datalabs/{rel_1['slug']})
-- **Related API 2:** [{rel_2['name']}](https://apify.com/mehdad-datalabs/{rel_2['slug']})
-- **Open-Source Python SDK & 20-API Directory on GitHub:** [https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite](https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite)
+Install the official Python client:
+
+{fence}bash
+pip install apify-client pandas
+{fence}
+
+Call the **[{actor['name']}](https://apify.com/mehdad-datalabs/{actor['slug']})** endpoint directly from Python:
+
+{fence}python
+from apify_client import ApifyClient
+import pandas as pd
+
+client = ApifyClient("YOUR_APIFY_API_TOKEN")
+
+# Run the Actor and wait for results
+run = client.actor("mehdad-datalabs/{actor['slug']}").call()
+
+# Load clean JSON records into a Pandas DataFrame
+items = client.dataset(run["defaultDatasetId"]).list_items().items
+df = pd.DataFrame(items)
+print(df.head())
+{fence}
+
+---
+
+## Connect Directly to Claude Desktop, Cursor (MCP) & n8n
+
+This Actor is natively compatible with Apify's **Model Context Protocol (MCP)** server (`@apify/actors-mcp-server`). You can also trigger it on a daily schedule inside **n8n, Make, Clay, or Zapier** to route real-time alerts into Slack, Telegram, HubSpot, or Google Sheets.
+
+**1. Live API Playground:** [{actor['name']}](https://apify.com/mehdad-datalabs/{actor['slug']})
+
+**2. Related API:** [{rel_1['name']}](https://apify.com/mehdad-datalabs/{rel_1['slug']})
+
+**3. Related API:** [{rel_2['name']}](https://apify.com/mehdad-datalabs/{rel_2['slug']})
+
+**4. Open-Source Python SDK & Full 20-API Directory on GitHub:** [https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite](https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite)
 """
 
-    # Full 20-link report for GitHub LATEST_MARKET_SIGNALS.md
-    all_links = "\n".join(
-        [f"- [{a['name']}](https://apify.com/mehdad-datalabs/{a['slug']})" for a in ACTORS_ROTATION]
+    all_links = "\n\n".join(
+        [f"**{i+1}.** [{a['name']}](https://apify.com/mehdad-datalabs/{a['slug']})" for i, a in enumerate(ACTORS_ROTATION)]
     )
     github_body = f"{devto_body}\n---\n\n## Complete 20-API Directory\n\n{all_links}\n"
 
