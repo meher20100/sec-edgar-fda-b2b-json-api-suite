@@ -1,24 +1,24 @@
-# Automating Monthly ETF & Mutual Fund Portfolio Holdings (SEC Form N-PORT) in Python & Claude MCP (Nov 07, 2026)
+# Automating International ADR Stocks & Semiconductor Monthly Revenue (SEC Form 20-F & 6-K) in Python & Claude MCP (Nov 09, 2026)
 
-**Read on Dev.to:** [https://dev.to/mehdadsharifi/automating-monthly-etf-mutual-fund-portfolio-holdings-sec-form-n-port-in-python-claude-mcp-7d2](https://dev.to/mehdadsharifi/automating-monthly-etf-mutual-fund-portfolio-holdings-sec-form-n-port-in-python-claude-mcp-7d2)
+**Read on Dev.to:** [https://dev.to/mehdadsharifi/automating-international-adr-stocks-semiconductor-monthly-revenue-sec-form-20-f-6-k-in-python-2bba-temp-slug-6991002](https://dev.to/mehdadsharifi/automating-international-adr-stocks-semiconductor-monthly-revenue-sec-form-20-f-6-k-in-python-2bba-temp-slug-6991002)
 
-Extracting and normalizing **Monthly ETF & Mutual Fund Portfolio Holdings (SEC Form N-PORT)** is one of the highest-leverage data pipelines for quantitative researchers, B2B growth engineers, and AI agent builders—especially for **parsing Vanguard, BlackRock iShares, and Fidelity ETF holdings XML tables with ISINs and CUSIPs**.
+Extracting and normalizing **International ADR Stocks & Semiconductor Monthly Revenue (SEC Form 20-F & 6-K)** is one of the highest-leverage data pipelines for quantitative researchers, B2B growth engineers, and AI agent builders—especially for **tracking TSMC monthly wafer revenue, ASML earnings, and Novo Nordisk updates on Forms 20-F and 6-K**.
 
-Instead of maintaining fragile local XSLT/XML parsers or proxy networks, you can pull structured **JSON, CSV, or Excel** datasets in seconds using the **[SEC Form N-PORT Mutual Fund & ETF Portfolio Holdings API](https://apify.com/mehdad-datalabs/sec-nport-etf-mutual-fund-holdings-xml-scraper)** by **Mehdad DataLabs**.
+Instead of maintaining fragile local XSLT/XML parsers or proxy networks, you can pull structured **JSON, CSV, or Excel** datasets in seconds using the **[SEC Form 20-F & 6-K Global ADR & Foreign Stock Filings API](https://apify.com/mehdad-datalabs/sec-20f-6k-foreign-adr-international-stock-scraper)** by **Mehdad DataLabs**.
 
 ---
 
-## Live SEC EDGAR Activity Snapshot (Nov 07, 2026)
+## Live SEC EDGAR Activity Snapshot (Nov 09, 2026)
 
-Here is a live sample of recent regulatory activity across tracked benchmark tickers (NVDA, AAPL, MSFT, AMZN):
+Here is a live sample of recent regulatory activity across tracked benchmark tickers (TSM, ASML, NVO, BABA):
 
-**1. NVIDIA CORP (NVDA)** — Industry: Semiconductors & Related Devices | Latest Filing: Form 4 (Filed: 2026-11-06)
+**1. TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD (TSM)** — Industry: Semiconductors & Related Devices | Latest Filing: Form 4 (Filed: 2026-11-09)
 
-**2. Apple Inc. (AAPL)** — Industry: Electronic Computers | Latest Filing: Form 4 (Filed: 2026-11-05)
+**2. ASML HOLDING NV (ASML)** — Industry: Special Industry Machinery, NEC | Latest Filing: Form 6-K (Filed: 2026-10-14)
 
-**3. MICROSOFT CORP (MSFT)** — Industry: Services-Prepackaged Software | Latest Filing: Form 144 (Filed: 2026-11-05)
+**3. NOVO NORDISK A S (NVO)** — Industry: Pharmaceutical Preparations | Latest Filing: Form 6-K (Filed: 2026-11-09)
 
-**4. AMAZON COM INC (AMZN)** — Industry: Retail-Catalog & Mail-Order Houses | Latest Filing: Form 4 (Filed: 2026-11-04)
+**4. Alibaba Group Holding Ltd (BABA)** — Industry: Services-Business Services, NEC | Latest Filing: Form 6-K (Filed: 2026-11-06)
 
 ---
 
@@ -30,7 +30,7 @@ Install the official Python client:
 pip install apify-client pandas
 ```
 
-Call the **[SEC Form N-PORT Mutual Fund & ETF Portfolio Holdings API](https://apify.com/mehdad-datalabs/sec-nport-etf-mutual-fund-holdings-xml-scraper)** endpoint directly from Python:
+Call the **[SEC Form 20-F & 6-K Global ADR & Foreign Stock Filings API](https://apify.com/mehdad-datalabs/sec-20f-6k-foreign-adr-international-stock-scraper)** endpoint directly from Python:
 
 ```python
 from apify_client import ApifyClient
@@ -39,7 +39,7 @@ import pandas as pd
 client = ApifyClient("YOUR_APIFY_API_TOKEN")
 
 # Run the Actor and wait for results
-run = client.actor("mehdad-datalabs/sec-nport-etf-mutual-fund-holdings-xml-scraper").call()
+run = client.actor("mehdad-datalabs/sec-20f-6k-foreign-adr-international-stock-scraper").call()
 
 # Load clean JSON records into a Pandas DataFrame
 items = client.dataset(run["defaultDatasetId"]).list_items().items
@@ -53,11 +53,11 @@ print(df.head())
 
 This Actor is natively compatible with Apify's **Model Context Protocol (MCP)** server (`@apify/actors-mcp-server`). You can also trigger it on a daily schedule inside **n8n, Make, Clay, or Zapier** to route real-time alerts into Slack, Telegram, HubSpot, or Google Sheets.
 
-**1. Live API Playground:** [SEC Form N-PORT Mutual Fund & ETF Portfolio Holdings API](https://apify.com/mehdad-datalabs/sec-nport-etf-mutual-fund-holdings-xml-scraper)
+**1. Live API Playground:** [SEC Form 20-F & 6-K Global ADR & Foreign Stock Filings API](https://apify.com/mehdad-datalabs/sec-20f-6k-foreign-adr-international-stock-scraper)
 
-**2. Related API:** [SEC DEF 14A Executive Compensation & Proxy Statement API](https://apify.com/mehdad-datalabs/sec-def14a-ceo-executive-compensation-proxy-scraper)
+**2. Related API:** [US Federal Government Contract Awards & DoD B2B Lead Scraper](https://apify.com/mehdad-datalabs/us-federal-government-contract-awards-dod-b2b-scraper)
 
-**3. Related API:** [SEC Form 20-F & 6-K Global ADR & Foreign Stock Filings API](https://apify.com/mehdad-datalabs/sec-20f-6k-foreign-adr-international-stock-scraper)
+**3. Related API:** [FDA Drug Approvals, NDA/BLA Biotech Catalyst & Pharma API](https://apify.com/mehdad-datalabs/fda-drug-approvals-biotech-catalyst-pharma-b2b-scraper)
 
 **4. Open-Source Python SDK & Full 20-API Directory on GitHub:** [https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite](https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite)
 
