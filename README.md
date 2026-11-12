@@ -1,6 +1,6 @@
-# 📊 30-API SEC EDGAR, FDA Biotech, E-Commerce, Crypto & B2B Lead Suite (Python, REST & MCP)
+# 📊 41-API SEC EDGAR, FDA Biotech, E-Commerce, Crypto & B2B Lead Suite (Python, REST & MCP)
 
-A collection of 30 high-speed, cloud-hosted REST APIs and Claude/Cursor MCP Servers for extracting structured JSON, CSV, and Excel datasets from SEC EDGAR, US FDA and ClinicalTrials.gov, Shopify E-Commerce, Greenhouse and Lever Tech Jobs, Polymarket and DeFiLlama, Y Combinator and HackerNews, Apple Podcasts RSS, GitHub and OpenAlex, and Verified US B2B Healthcare and Banking Registries.
+A collection of **41 high-speed, cloud-hosted REST APIs and Claude/Cursor MCP Servers** for extracting structured JSON, CSV, and Excel datasets from SEC EDGAR, US FDA and ClinicalTrials.gov, Shopify E-Commerce, Greenhouse and Lever Tech Jobs, Polymarket and DeFiLlama, Y Combinator and HackerNews, Apple Podcasts RSS, GitHub and OpenAlex, Verified US B2B Healthcare and Banking Registries, and **Cursor, Cline, LobeHub, Dify, Activepieces, Composio, Dune, Make.com, Vercel, Langflow & Supabase Ecosystems**.
 
 Built and maintained by [Mehdad DataLabs on Apify](https://apify.com/mehdad-datalabs).
 
@@ -8,12 +8,12 @@ Built and maintained by [Mehdad DataLabs on Apify](https://apify.com/mehdad-data
 
 ## ⚡ Why Use These APIs Instead of Raw Scraping?
 
-- Pure Async HTTPX & XML/JSON Pipelines: Runs in 3 to 6 seconds on 256 MB RAM with zero proxy fees and zero headless browser overhead.
-- Native AI Agent (MCP) & Clay / n8n Support: Plug any of the 30 endpoints directly into Claude Desktop, Cursor, LangChain, Clay, Make, or n8n.
+- **Pure Async HTTPX & XML/JSON Pipelines:** Runs in 3 to 6 seconds on 256 MB RAM with zero proxy fees and zero headless browser overhead.
+- **Native AI Agent (MCP) & Clay / n8n Support:** Plug any of the **41 endpoints** directly into Claude Desktop, Cursor, LangChain, Clay, Make, or n8n.
 
 ---
 
-## 🗂️ Complete 30-API Directory & Live Endpoints
+## 🗂️ Complete 41-API Directory & Live Endpoints
 
 ### 1. Wall Street & SEC EDGAR Intelligence APIs (10 APIs)
 
@@ -66,13 +66,31 @@ Built and maintained by [Mehdad DataLabs on Apify](https://apify.com/mehdad-data
 
 ---
 
+### 4. AI Coding, MCP Marketplaces, Web3 & Automation Templates (11 APIs)
+
+| # | API Name | Actor ID (`mehdad-datalabs/...`) | Live API & Playground |
+| :--- | :--- | :--- | :--- |
+| 31 | Cursor Directory Plugins, MCPs & Rules API | `cursor-directory-plugins-mcp-rules-b2b-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/cursor-directory-plugins-mcp-rules-b2b-scraper) |
+| 32 | Cline & Roo Code MCP Marketplace API | `cline-mcp-marketplace-ai-plugins-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/cline-mcp-marketplace-ai-plugins-scraper) |
+| 33 | LobeHub MCP & AI Agent Plugins API | `lobehub-mcp-ai-agent-plugins-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/lobehub-mcp-ai-agent-plugins-scraper) |
+| 34 | Dify AI Marketplace & Plugin Catalog API | `dify-ai-marketplace-plugins-catalog-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/dify-ai-marketplace-plugins-catalog-scraper) |
+| 35 | Activepieces Automation Pieces & Actions API | `activepieces-automation-pieces-actions-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/activepieces-automation-pieces-actions-scraper) |
+| 36 | Composio AI Agent Toolkits & Actions API | `composio-ai-agent-toolkits-actions-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/composio-ai-agent-toolkits-actions-scraper) |
+| 37 | Dune Analytics Web3 Dashboards & Queries API | `dune-analytics-web3-dashboards-queries-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/dune-analytics-web3-dashboards-queries-scraper) |
+| 38 | Make.com Automation Templates & Apps API | `make-com-automation-templates-integrations-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/make-com-automation-templates-integrations-scraper) |
+| 39 | Vercel Templates & Next.js AI Starter API | `vercel-templates-nextjs-starter-ecosystem-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/vercel-templates-nextjs-starter-ecosystem-scraper) |
+| 40 | Langflow & Flowise AI Agent Templates API | `langflow-flowise-ai-agent-templates-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/langflow-flowise-ai-agent-templates-scraper) |
+| 41 | Supabase Ecosystem Partners & B2B Leads API | `supabase-ecosystem-partners-integrations-b2b-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/supabase-ecosystem-partners-integrations-b2b-scraper) |
+
+---
+
 ## 🐍 Python Quickstart (`quickstart.py`)
 
 Install the official Apify Python client:
 
     pip install apify-client pandas
 
-Run any of the 30 APIs in 10 lines of Python (get your free API token at [console.apify.com/settings/integrations](https://console.apify.com/settings/integrations)):
+Run any of the 41 APIs in 10 lines of Python (get your free API token at [console.apify.com/settings/integrations](https://console.apify.com/settings/integrations)):
 
     from apify_client import ApifyClient
     import pandas as pd
