@@ -448,13 +448,13 @@ This Actor is natively compatible with Apify's **Model Context Protocol (MCP)** 
 
 **3. Related API:** [{rel_2['name']}](https://apify.com/mehdad-datalabs/{rel_2['slug']})
 
-**4. Open-Source Python SDK & Full 20-API Directory on GitHub:** [https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite](https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite)
+**4. Open-Source Python SDK & Full 41-API Directory on GitHub:** [https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite](https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite)
 """
 
     all_links = "\n\n".join(
         [f"**{i+1}.** [{a['name']}](https://apify.com/mehdad-datalabs/{a['slug']})" for i, a in enumerate(ACTORS_ROTATION)]
     )
-    github_body = f"{devto_body}\n---\n\n## Complete 20-API Directory\n\n{all_links}\n"
+    github_body = f"{devto_body}\n---\n\n## Complete 41-API Directory\n\n{all_links}\n"
 
     return title, devto_body, github_body
 
