@@ -476,7 +476,7 @@ def publish_to_devto(title: str, body: str, tags: list[str]) -> str:
     payload = json.dumps({
         "article": {
             "title": title[:125],
-            "published": False,
+            "published": True,
             "body_markdown": body,
             "tags": tags[:4],
         }
