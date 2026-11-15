@@ -1,6 +1,6 @@
 # Automating CEO Compensation, Board Elections & Merger Proxies (SEC Form DEF 14A) in Python & Claude MCP (Nov 15, 2026)
 
-**Read on Dev.to:** [https://dev.to/mehdadsharifi/automating-ceo-compensation-board-elections-merger-proxies-sec-form-def-14a-in-python-claude-1pba](https://dev.to/mehdadsharifi/automating-ceo-compensation-board-elections-merger-proxies-sec-form-def-14a-in-python-claude-1pba)
+**Read on Dev.to:** [https://dev.to/mehdadsharifi/automating-ceo-compensation-board-elections-merger-proxies-sec-form-def-14a-in-python-claude-fc2](https://dev.to/mehdadsharifi/automating-ceo-compensation-board-elections-merger-proxies-sec-form-def-14a-in-python-claude-fc2)
 
 Extracting and normalizing **CEO Compensation, Board Elections & Merger Proxies (SEC Form DEF 14A)** is one of the highest-leverage data pipelines for quantitative researchers, B2B growth engineers, and AI agent builders—especially for **benchmarking C-suite executive compensation, golden parachutes (DEFM14A), and activist proxy fights**.
 
