@@ -328,7 +328,17 @@ ACTORS_ROTATION = [
         "name": "Langflow & Flowise AI Agent Workflow Templates API",
         "topic": "Langflow & FlowiseAI Visual RAG & Multi-Agent JSON Templates",
         "tags": ["ai", "rag", "agents", "python"],
-        "ticker
+        "tickers": ["NVDA", "PLTR", "SNOW", "DDOG"],
+        "use_case": "extracting Langflow and FlowiseAI visual RAG/agent workflow blueprints and raw JSON download URLs",
+    },
+    {
+        "slug": "supabase-ecosystem-partners-integrations-b2b-scraper",
+        "name": "Supabase Ecosystem Partners & Tech Integrations B2B API",
+        "topic": "Supabase Ecosystem Tech Partners & Agency B2B Lead Discovery",
+        "tags": ["supabase", "b2b", "devtools", "python"],
+        "tickers": ["MDB", "NET", "SNOW", "DDOG"],
+        "use_case": "extracting verified Supabase technology partners, integration categories, and agency expert leads",
+    },
 ]
 
 
@@ -388,7 +398,6 @@ def build_article(day_index: int, live_rows: list[dict], today_str: str) -> tupl
 
     title = f"Automating {actor['topic']} in Python & Claude MCP ({today_str})"
 
-    # Medium- & Dev.to-compatible numbered paragraphs (Medium importer never strips numbered paragraphs!)
     snapshot_lines = []
     for idx, r in enumerate(live_rows, 1):
         snapshot_lines.append(
@@ -399,13 +408,13 @@ def build_article(day_index: int, live_rows: list[dict], today_str: str) -> tupl
     fence = "```"
     devto_body = f"""Extracting and normalizing **{actor['topic']}** is one of the highest-leverage data pipelines for quantitative researchers, B2B growth engineers, and AI agent builders—especially for **{actor['use_case']}**.
 
-Instead of maintaining fragile local XSLT/XML parsers or proxy networks, you can pull structured **JSON, CSV, or Excel** datasets in seconds using the **[{actor['name']}](https://apify.com/mehdad-datalabs/{actor['slug']})** by **Mehdad DataLabs**.
+Instead of maintaining fragile local parsers or proxy networks, you can pull structured **JSON, CSV, or Excel** datasets in seconds using the **[{actor['name']}](https://apify.com/mehdad-datalabs/{actor['slug']})** by **Mehdad DataLabs**.
 
 ---
 
-## Live SEC EDGAR Activity Snapshot ({today_str})
+## Live Market & Regulatory Activity Snapshot ({today_str})
 
-Here is a live sample of recent regulatory activity across tracked benchmark tickers ({', '.join(actor['tickers'])}):
+Here is a live sample of recent activity across tracked benchmark tickers ({', '.join(actor['tickers'])}):
 
 {live_snapshot_md}
 
