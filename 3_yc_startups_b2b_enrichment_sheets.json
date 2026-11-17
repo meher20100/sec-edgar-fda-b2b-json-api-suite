@@ -1,0 +1,473 @@
+{
+  "name": "YC Startups + B2B Email & Tech Stack Enrichment (Apify)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Y Combinator Startups + B2B Email & Tech Stack Enrichment\nPowered by **Mehdad DataLabs** on Apify:\n1. YC Scraper: https://apify.com/mehdad-datalabs/y-combinator-yc-startup-directory-b2b-lead-scraper\n2. B2B Enricher: https://apify.com/mehdad-datalabs/b2b-website-email-phone-social-links-tech-stack-scraper\n\nPulls YC startups, filters companies with live websites, enriches emails/tech stack, and routes qualified leads to Google Sheets.",
+        "height": 250,
+        "width": 480,
+        "color": 5
+      },
+      "id": "8dd441b3-4a32-4a24-995f-02fac3ed9b2b",
+      "name": "Sticky Note - Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Set YC Batch & Credentials\nIn **Set YC Batch & Config**, replace:\n- `apifyToken`: `YOUR_APIFY_API_TOKEN`\n- `spreadsheetId`: `YOUR_GOOGLE_SHEET_ID`\n- `batch`: e.g. `W25`, `S25`, or `W26`",
+        "height": 210,
+        "width": 360,
+        "color": 3
+      },
+      "id": "6d1d662f-3fce-4a96-afea-1197fd2a3cac",
+      "name": "Sticky Note - Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        700,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: B2B Website Enrichment\nCaps batch size with **Limit Startups** and calls the Apify B2B Website Enricher for emails, phones, social links, and tech stack.",
+        "height": 190,
+        "width": 360,
+        "color": 6
+      },
+      "id": "65eb5be9-86e8-41bc-8f23-dce073bb4fd2",
+      "name": "Sticky Note - Enrichment",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Step 3: Lead Quality Split\n- **QualifiedLeads Tab:** Startups with verified contact email\n- **NeedsReview Tab:** Startups without email (social/website only)",
+        "height": 190,
+        "width": 360,
+        "color": 4
+      },
+      "id": "896d82a9-5759-443d-a803-afea689276a7",
+      "name": "Sticky Note - Lead Routing",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        -40
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "6405831f-8c32-44b5-9d36-185cc79a4c2d",
+      "name": "Manual Test Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        220,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "weeksInterval": 1
+            }
+          ]
+        }
+      },
+      "id": "4ddc68a1-9318-4d3d-8dfa-42baaf2c27bf",
+      "name": "Weekly YC Sync Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        220,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "eab9505e-2f6a-4b52-a2b3-0bb05f551729",
+              "name": "apifyToken",
+              "value": "YOUR_APIFY_API_TOKEN",
+              "type": "string"
+            },
+            {
+              "id": "d2a23364-dbcc-4ad1-873a-8d3783a19bd8",
+              "name": "spreadsheetId",
+              "value": "YOUR_GOOGLE_SHEET_ID",
+              "type": "string"
+            },
+            {
+              "id": "8da5f981-80cd-4fc8-be8b-9936d0451ac1",
+              "name": "batch",
+              "value": "W25",
+              "type": "string"
+            },
+            {
+              "id": "3bff4c23-5f10-4985-99d8-4e35ed7db120",
+              "name": "maxCompanies",
+              "value": 25,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "70d81aca-f4ed-40c4-9520-0f98cd9f8473",
+      "name": "Set YC Batch & Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/mehdad-datalabs~y-combinator-yc-startup-directory-b2b-lead-scraper/run-sync-get-dataset-items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "={{ $json.apifyToken }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ batch: $json.batch, maxResults: $json.maxCompanies }) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "6e9faae9-797c-4a75-8f53-fc625b2e7c0c",
+      "name": "Run Apify YC Startup Scraper",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        740,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "2edeaac7-456a-4770-9e79-23aa244ec172",
+              "leftValue": "={{ $json.website || $json.companyUrl || '' }}",
+              "rightValue": "http",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f47438cb-a716-4c3f-af7a-81fb857a792e",
+      "name": "Filter Startups With Website",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1000,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "maxItems": 15
+      },
+      "id": "c7015d2e-8033-4e12-9416-2620b87efbeb",
+      "name": "Limit Startups",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/mehdad-datalabs~b2b-website-email-phone-social-links-tech-stack-scraper/run-sync-get-dataset-items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "={{ $('Set YC Batch & Config').first().json.apifyToken }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ urls: [$json.website || $json.companyUrl] }) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "6835b35e-8961-4136-8b09-8e310b1aff49",
+      "name": "Enrich B2B Email & Tech Stack",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1480,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const sheetId = $('Set YC Batch & Config').first().json.spreadsheetId;\nreturn $input.all().map(item => {\n  const d = item.json;\n  const emails = Array.isArray(d.emails) ? d.emails : (d.email ? [d.email] : []);\n  const tech = Array.isArray(d.techStack) ? d.techStack.join(', ') : (d.techStack || '');\n  return {\n    json: {\n      spreadsheetId: sheetId,\n      website: d.url || d.website || '',\n      primaryEmail: emails[0] || '',\n      allEmails: emails.join(', '),\n      phone: Array.isArray(d.phones) ? (d.phones[0] || '') : (d.phone || ''),\n      linkedin: d.linkedin || d.socialLinks?.linkedin || '',\n      techStack: tech,\n      hasEmail: emails.length > 0\n    }\n  };\n});"
+      },
+      "id": "9d586d19-e6e3-4874-8e33-b927aeeb321f",
+      "name": "Score & Format B2B Leads",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1720,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "2846fabb-6014-4ad3-865f-28a830f87c0f",
+              "leftValue": "={{ $json.hasEmail }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0ede96be-14e8-40eb-a0fe-ff879efe270a",
+      "name": "Has Contact Email?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1960,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $json.spreadsheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "QualifiedLeads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "f00b1467-3b23-4289-a222-9c0a5618a03a",
+      "name": "Save Qualified Leads (Sheets)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2220,
+        180
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_GOOGLE_SHEETS_CRED_ID",
+          "name": "Google Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $json.spreadsheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "NeedsReview",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "e24ba69d-efac-4a38-a106-164b7d003b43",
+      "name": "Save Needs Review (Sheets)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2220,
+        360
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_GOOGLE_SHEETS_CRED_ID",
+          "name": "Google Sheets"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Test Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set YC Batch & Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Weekly YC Sync Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set YC Batch & Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set YC Batch & Config": {
+      "main": [
+        [
+          {
+            "node": "Run Apify YC Startup Scraper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Apify YC Startup Scraper": {
+      "main": [
+        [
+          {
+            "node": "Filter Startups With Website",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Startups With Website": {
+      "main": [
+        [
+          {
+            "node": "Limit Startups",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Limit Startups": {
+      "main": [
+        [
+          {
+            "node": "Enrich B2B Email & Tech Stack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enrich B2B Email & Tech Stack": {
+      "main": [
+        [
+          {
+            "node": "Score & Format B2B Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score & Format B2B Leads": {
+      "main": [
+        [
+          {
+            "node": "Has Contact Email?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Contact Email?": {
+      "main": [
+        [
+          {
+            "node": "Save Qualified Leads (Sheets)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Save Needs Review (Sheets)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

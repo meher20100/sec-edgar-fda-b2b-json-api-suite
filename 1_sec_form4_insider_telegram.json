@@ -1,0 +1,441 @@
+{
+  "name": "SEC Form 4 Insider Buying Alerts to Telegram (Apify)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## SEC Form 4 Insider Buying Alerts -> Telegram\nPowered by **Mehdad DataLabs** on Apify:\nhttps://apify.com/mehdad-datalabs/sec-form-4-insider-trading-scraper-xml-parser-api\n\n**What this does:**\n1. Runs daily (or manually)\n2. Scrapes live SEC Form 4 XML filings\n3. Filters & ranks insider purchases\n4. Routes Mega-Buys ($500K+) vs Standard Buys ($50K+) to Telegram",
+        "height": 260,
+        "width": 420,
+        "color": 5
+      },
+      "id": "1773e71e-8e43-4233-afc1-10dd07953151",
+      "name": "Sticky Note - Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Configure Workflow\nOpen **Set Workflow Config** and replace:\n- `apifyToken`: `YOUR_APIFY_API_TOKEN`\n- `telegramChatId`: `YOUR_TELEGRAM_CHAT_ID`\n- `tickers`: comma-separated tickers (e.g. `NVDA,AAPL,MSFT`)\n- `minTradeValue`: minimum USD value (default `50000`)",
+        "height": 220,
+        "width": 360,
+        "color": 3
+      },
+      "id": "c2a4bf57-96a9-4306-bcd3-dcccb1c9c6e7",
+      "name": "Sticky Note - Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        640,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Filter & Rank Trades\n- Drops non-qualifying or empty filings\n- Sorts purchases largest-first and formats clean Markdown alerts",
+        "height": 180,
+        "width": 340,
+        "color": 6
+      },
+      "id": "571c1fd7-87bb-4492-92a5-cc9a5d9d484f",
+      "name": "Sticky Note - Processing",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Step 3: Tiered Telegram Alerts\n- **Mega-Buy (>= $500,000):** High-priority alert\n- **Standard Buy (>= $50,000):** Daily watch alert",
+        "height": 180,
+        "width": 340,
+        "color": 4
+      },
+      "id": "92d8c325-17ad-47ff-98f3-e993604e6a6f",
+      "name": "Sticky Note - Routing",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1620,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "9d0520a0-b72c-4e68-9800-e41d21971583",
+      "name": "Daily Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        220,
+        260
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "5d619db5-44fa-467a-b23b-cc29e132aa58",
+      "name": "Manual Test Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        220,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "620da4b5-4e49-4d4e-9c4c-bb29b7eaf559",
+              "name": "apifyToken",
+              "value": "YOUR_APIFY_API_TOKEN",
+              "type": "string"
+            },
+            {
+              "id": "9cc0fb3a-c5f0-4ff2-b552-766a03617ddb",
+              "name": "telegramChatId",
+              "value": "YOUR_TELEGRAM_CHAT_ID",
+              "type": "string"
+            },
+            {
+              "id": "ad4c3725-82eb-4acd-bf84-db5d737e43f8",
+              "name": "tickers",
+              "value": "NVDA,AAPL,MSFT,AMZN,META",
+              "type": "string"
+            },
+            {
+              "id": "7f314ce2-32d4-41e4-ae43-08b5835147f8",
+              "name": "minTradeValue",
+              "value": 50000,
+              "type": "number"
+            },
+            {
+              "id": "ff1d0825-d6bb-4e95-afa5-ab47996f0e27",
+              "name": "megaBuyThreshold",
+              "value": 500000,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b3dd5c2c-6fed-4db2-9983-1faf62d03a68",
+      "name": "Set Workflow Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        500,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/mehdad-datalabs~sec-form-4-insider-trading-scraper-xml-parser-api/run-sync-get-dataset-items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "={{ $json.apifyToken }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ tickers: $json.tickers.split(\",\").map(t => t.trim()), transactionCodes: [\"P\"], maxFilingsPerTicker: 10 }) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "71f2ad1f-390e-4511-8a51-a14a5335091d",
+      "name": "Run Apify SEC Form 4 Scraper",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        760,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "6a7865f3-7f98-4569-9345-f8a11f961f13",
+              "leftValue": "={{ Number($json.totalValue || $json.transactionValue || 0) }}",
+              "rightValue": "={{ $('Set Workflow Config').item.json.minTradeValue }}",
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "db5bfe92-b8d1-49d6-b36b-388f2d2c4540",
+      "name": "Filter Qualifying Buys",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1020,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst cfg = $('Set Workflow Config').first().json;\nconst sorted = items\n  .map(i => {\n    const d = i.json;\n    const val = Number(d.totalValue || d.transactionValue || 0);\n    return {\n      ...d,\n      numericValue: val,\n      tier: val >= Number(cfg.megaBuyThreshold) ? 'mega' : 'standard',\n      formattedValue: '$' + val.toLocaleString('en-US', { maximumFractionDigits: 0 }),\n      telegramChatId: cfg.telegramChatId,\n      markdownMessage: [\n        val >= Number(cfg.megaBuyThreshold) ? '🚨 *MEGA INSIDER BUY*' : '📈 *SEC Form 4 Insider Buy*',\n        `*Ticker:* ${d.ticker || 'N/A'} (${d.companyName || 'Company'})`,\n        `*Insider:* ${d.insiderName || 'N/A'} — ${d.insiderTitle || 'Officer/Director'}`,\n        `*Value:* $${val.toLocaleString('en-US', { maximumFractionDigits: 0 })} (${d.shares || '?'} shares @ $${d.pricePerShare || '?'})`,\n        `*Filing Date:* ${d.filingDate || d.transactionDate || 'Recent'}`,\n        d.filingUrl ? `[View SEC Filing](${d.filingUrl})` : ''\n      ].filter(Boolean).join('\\n')\n    };\n  })\n  .sort((a, b) => b.numericValue - a.numericValue);\n\nreturn sorted.map(row => ({ json: row }));"
+      },
+      "id": "5549651f-e123-43f9-89da-093620621901",
+      "name": "Rank & Format Alerts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        260
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "2fea9d7d-87f4-4003-98ba-3dcf3cc8bae9",
+      "name": "No Qualifying Trades",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tier }}",
+                    "rightValue": "mega",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Mega-Buy ($500K+)"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tier }}",
+                    "rightValue": "standard",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Standard Buy"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a17107ae-af24-4b9e-acc1-e849b60e5668",
+      "name": "Route by Trade Size",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1540,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.telegramChatId }}",
+        "text": "={{ $json.markdownMessage }}",
+        "additionalFields": {
+          "parse_mode": "Markdown",
+          "disable_web_page_preview": true
+        }
+      },
+      "id": "037d45f3-3582-49de-ace0-72605f99519a",
+      "name": "Send Mega-Buy Alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1820,
+        180
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.telegramChatId }}",
+        "text": "={{ $json.markdownMessage }}",
+        "additionalFields": {
+          "parse_mode": "Markdown",
+          "disable_web_page_preview": true
+        }
+      },
+      "id": "8ae2053c-0e34-4acb-8342-90c8e935cf19",
+      "name": "Send Standard Alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1820,
+        360
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Workflow Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Test Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Workflow Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Workflow Config": {
+      "main": [
+        [
+          {
+            "node": "Run Apify SEC Form 4 Scraper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Apify SEC Form 4 Scraper": {
+      "main": [
+        [
+          {
+            "node": "Filter Qualifying Buys",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Qualifying Buys": {
+      "main": [
+        [
+          {
+            "node": "Rank & Format Alerts",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Qualifying Trades",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rank & Format Alerts": {
+      "main": [
+        [
+          {
+            "node": "Route by Trade Size",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by Trade Size": {
+      "main": [
+        [
+          {
+            "node": "Send Mega-Buy Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Standard Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

@@ -1,0 +1,480 @@
+{
+  "name": "Shopify Competitor Price Monitor to Google Sheets (Apify)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Shopify Competitor Price Monitor -> Google Sheets\nPowered by **Mehdad DataLabs** on Apify:\nhttps://apify.com/mehdad-datalabs/shopify-store-spy-product-catalog-price-b2b-scraper\n\n**What this does:**\n1. Iterates over a list of competitor Shopify domains\n2. Scrapes full product catalogs & compare-at prices\n3. Calculates discount % and routes discounted vs full-price SKUs to separate Google Sheets tabs",
+        "height": 250,
+        "width": 440,
+        "color": 5
+      },
+      "id": "b06de198-36d4-4634-82c8-9f30db9f02ad",
+      "name": "Sticky Note - Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Configure Stores & Token\nOpen **Set Competitor Stores** and set:\n- `apifyToken`: `YOUR_APIFY_API_TOKEN`\n- `storeUrls`: array of Shopify store URLs\n- `spreadsheetId`: `YOUR_GOOGLE_SHEET_ID`",
+        "height": 210,
+        "width": 360,
+        "color": 3
+      },
+      "id": "316d4848-cd38-4608-b1be-af4c7ba771d1",
+      "name": "Sticky Note - Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        660,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Price & Discount Calculation\nNormalizes price fields, computes `discountPercent`, and tags each SKU as `discounted` or `regular`.",
+        "height": 180,
+        "width": 340,
+        "color": 6
+      },
+      "id": "1a6d91da-bc28-4c78-bce9-7d2d70bab9a7",
+      "name": "Sticky Note - Enrichment",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Step 3: Dual Google Sheets Logging\n- **Price Drops Tab:** Products currently on sale\n- **Full Catalog Tab:** All active competitor SKUs",
+        "height": 180,
+        "width": 340,
+        "color": 4
+      },
+      "id": "776d09ae-f829-4070-91b5-88f70ac9c7ca",
+      "name": "Sticky Note - Storage",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1680,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "2690addb-26ad-47ee-bc48-999a404fa51a",
+      "name": "Daily Price Check Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        220,
+        260
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "aebff70c-8447-4c78-8bb1-0a5f43965a74",
+      "name": "Manual Test Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        220,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8f79fdd2-7759-4d0d-9e7f-e54a7685c80e",
+              "name": "apifyToken",
+              "value": "YOUR_APIFY_API_TOKEN",
+              "type": "string"
+            },
+            {
+              "id": "8c9784d8-d14f-4cd4-8fb7-516e0369cda8",
+              "name": "spreadsheetId",
+              "value": "YOUR_GOOGLE_SHEET_ID",
+              "type": "string"
+            },
+            {
+              "id": "127eac6a-2a17-45b0-baef-7eed7d9c094b",
+              "name": "storeUrls",
+              "value": "=[\"https://www.allbirds.com\", \"https://www.gymshark.com\"]",
+              "type": "array"
+            },
+            {
+              "id": "0c31483b-fc5d-487d-832e-50859f238f56",
+              "name": "maxProductsPerStore",
+              "value": 100,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0c431ba5-6b6c-4cc4-b9fe-ce498a0ba94b",
+      "name": "Set Competitor Stores",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "storeUrls",
+        "options": {}
+      },
+      "id": "fb47e00a-8060-46c5-a653-de516cc17597",
+      "name": "Split Store URLs",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        720,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/mehdad-datalabs~shopify-store-spy-product-catalog-price-b2b-scraper/run-sync-get-dataset-items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "={{ $('Set Competitor Stores').first().json.apifyToken }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ storeUrl: $json.storeUrls, maxProducts: $(\"Set Competitor Stores\").first().json.maxProductsPerStore }) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "9727e56f-86ac-44d2-b141-53c88ceff532",
+      "name": "Run Apify Shopify Store Spy",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "49861ec5-9057-4df6-baff-499de79d0e54",
+              "leftValue": "={{ $json.title || $json.productTitle || '' }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b1633f0a-ff84-42a3-85b3-4471ff810e63",
+      "name": "Check Products Returned",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1200,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const scrapedAt = new Date().toISOString().split('T')[0];\nconst sheetId = $('Set Competitor Stores').first().json.spreadsheetId;\nreturn $input.all().map(item => {\n  const d = item.json;\n  const price = Number(d.price || d.minPrice || 0);\n  const compareAt = Number(d.compareAtPrice || d.maxPrice || 0);\n  const isDiscounted = compareAt > price && price > 0;\n  const discountPct = isDiscounted ? Math.round(((compareAt - price) / compareAt) * 100) : 0;\n  return {\n    json: {\n      scrapedDate: scrapedAt,\n      spreadsheetId: sheetId,\n      store: d.storeDomain || d.storeUrl || 'Shopify Store',\n      title: d.title || d.productTitle || 'Untitled',\n      vendor: d.vendor || 'N/A',\n      price,\n      compareAtPrice: compareAt,\n      discountPercent: discountPct,\n      priceStatus: isDiscounted ? 'discounted' : 'regular',\n      available: d.available !== undefined ? d.available : true,\n      productUrl: d.url || d.productUrl || ''\n    }\n  };\n});"
+      },
+      "id": "eab72224-1562-4eae-93eb-e7e176576990",
+      "name": "Normalize Price & Discount",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1460,
+        260
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "659bb8ba-0c47-45da-a098-3ea40c59acd3",
+      "name": "No Products Found",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1460,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.priceStatus }}",
+                    "rightValue": "discounted",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Discounted SKUs"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.priceStatus }}",
+                    "rightValue": "regular",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Regular Price SKUs"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ed75fe25-5698-4c19-9b37-56189b8a54c8",
+      "name": "Route Discounted vs Regular",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1720,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $json.spreadsheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "PriceDrops",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "f4094bae-38a3-413a-9d70-4d2877e9668e",
+      "name": "Log Price Drops (Sheets)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1980,
+        180
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_GOOGLE_SHEETS_CRED_ID",
+          "name": "Google Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $json.spreadsheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "FullCatalog",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "2474b6b5-e859-471a-acf2-2239c6fabe87",
+      "name": "Log Full Catalog (Sheets)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1980,
+        360
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_GOOGLE_SHEETS_CRED_ID",
+          "name": "Google Sheets"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily Price Check Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Competitor Stores",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Test Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Competitor Stores",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Competitor Stores": {
+      "main": [
+        [
+          {
+            "node": "Split Store URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Store URLs": {
+      "main": [
+        [
+          {
+            "node": "Run Apify Shopify Store Spy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Apify Shopify Store Spy": {
+      "main": [
+        [
+          {
+            "node": "Check Products Returned",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Products Returned": {
+      "main": [
+        [
+          {
+            "node": "Normalize Price & Discount",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Products Found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Price & Discount": {
+      "main": [
+        [
+          {
+            "node": "Route Discounted vs Regular",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Discounted vs Regular": {
+      "main": [
+        [
+          {
+            "node": "Log Price Drops (Sheets)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Full Catalog (Sheets)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

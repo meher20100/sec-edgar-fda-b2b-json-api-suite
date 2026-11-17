@@ -1,112 +1,16 @@
-# 📊 41-API SEC EDGAR, FDA Biotech, E-Commerce, Crypto & B2B Lead Suite (Python, REST & MCP)
+﻿# n8n Workflow Templates (Powered by Mehdad DataLabs on Apify)
 
-A collection of **41 high-speed, cloud-hosted REST APIs and Claude/Cursor MCP Servers** for extracting structured JSON, CSV, and Excel datasets from SEC EDGAR, US FDA and ClinicalTrials.gov, Shopify E-Commerce, Greenhouse and Lever Tech Jobs, Polymarket and DeFiLlama, Y Combinator and HackerNews, Apple Podcasts RSS, GitHub and OpenAlex, Verified US B2B Healthcare and Banking Registries, and **Cursor, Cline, LobeHub, Dify, Activepieces, Composio, Dune, Make.com, Vercel, Langflow & Supabase Ecosystems**.
+Ready-to-import **n8n** automation templates using lightweight, zero-browser **Apify Actors** by [Mehdad DataLabs](https://apify.com/mehdad-datalabs).
 
-Built and maintained by [Mehdad DataLabs on Apify](https://apify.com/mehdad-datalabs).
+## Available Templates
 
----
+| Template | Use Case | Apify Actor(s) Used |
+|---|---|---|
+| [`1_sec_form4_insider_telegram.json`](./1_sec_form4_insider_telegram.json) | Daily SEC Form 4 insider buying alerts routed by trade size ($50K+ / $500K+) to Telegram | [SEC Form 4 Insider Trading Scraper](https://apify.com/mehdad-datalabs/sec-form-4-insider-trading-scraper-xml-parser-api) |
+| [`2_shopify_competitor_price_sheets.json`](./2_shopify_competitor_price_sheets.json) | Automated Shopify competitor catalog & price-drop monitor logged to Google Sheets | [Shopify Store Spy Scraper](https://apify.com/mehdad-datalabs/shopify-store-spy-product-catalog-price-b2b-scraper) |
+| [`3_yc_startups_b2b_enrichment_sheets.json`](./3_yc_startups_b2b_enrichment_sheets.json) | Y Combinator startup batch scraper + B2B email & tech-stack enrichment to Google Sheets | [YC Startup Directory Scraper](https://apify.com/mehdad-datalabs/y-combinator-yc-startup-directory-b2b-lead-scraper) + [B2B Website Email & Tech Stack Enricher](https://apify.com/mehdad-datalabs/b2b-website-email-phone-social-links-tech-stack-scraper) |
 
-## ⚡ Why Use These APIs Instead of Raw Scraping?
-
-- **Pure Async HTTPX & XML/JSON Pipelines:** Runs in 3 to 6 seconds on 256 MB RAM with zero proxy fees and zero headless browser overhead.
-- **Native AI Agent (MCP) & Clay / n8n Support:** Plug any of the **41 endpoints** directly into Claude Desktop, Cursor, LangChain, Clay, Make, or n8n.
-
----
-
-## 🗂️ Complete 41-API Directory & Live Endpoints
-
-### 1. Wall Street & SEC EDGAR Intelligence APIs (10 APIs)
-
-| # | API Name | Actor ID (`mehdad-datalabs/...`) | Live API & Playground |
-| :--- | :--- | :--- | :--- |
-| 1 | SEC Form 4 Insider Trading XML API | `sec-form-4-insider-trading-scraper-xml-parser-api` | [Try API ↗](https://apify.com/mehdad-datalabs/sec-form-4-insider-trading-scraper-xml-parser-api) |
-| 2 | SEC Form 13F Hedge Fund Whale API | `sec-13f-institutional-holdings-hedge-fund-whale-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/sec-13f-institutional-holdings-hedge-fund-whale-scraper) |
-| 3 | SEC Form N-PORT ETF & Mutual Fund API | `sec-nport-etf-mutual-fund-holdings-xml-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/sec-nport-etf-mutual-fund-holdings-xml-scraper) |
-| 4 | SEC 10-K & 10-Q XBRL Financials API | `sec-10k-10q-xbrl-financial-statements-earnings-api` | [Try API ↗](https://apify.com/mehdad-datalabs/sec-10k-10q-xbrl-financial-statements-earnings-api) |
-| 5 | SEC Form 8-K Material Events & M&A API | `sec-8k-corporate-events-ma-executive-change-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/sec-8k-corporate-events-ma-executive-change-scraper) |
-| 6 | SEC Schedule 13D & 13G Activist API | `sec-schedule-13d-13g-activist-investor-ownership-api` | [Try API ↗](https://apify.com/mehdad-datalabs/sec-schedule-13d-13g-activist-investor-ownership-api) |
-| 7 | SEC Form S-1 IPO & Form 144 Sale API | `sec-ipo-s1-form144-insider-sale-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/sec-ipo-s1-form144-insider-sale-scraper) |
-| 8 | SEC Form DEF 14A CEO Pay & Proxy API | `sec-def14a-ceo-executive-compensation-proxy-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/sec-def14a-ceo-executive-compensation-proxy-scraper) |
-| 9 | SEC Form 20-F & 6-K Global ADR API | `sec-20f-6k-foreign-adr-international-stock-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/sec-20f-6k-foreign-adr-international-stock-scraper) |
-| 10 | SEC Form D Startup VC Funding API | `sec-form-d-startup-funding-vc-b2b-lead-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/sec-form-d-startup-funding-vc-b2b-lead-scraper) |
-
----
-
-### 2. High-Velocity B2B Lead Generation, E-Commerce & Startup Spy APIs (10 APIs)
-
-| # | API Name | Actor ID (`mehdad-datalabs/...`) | Live API & Playground |
-| :--- | :--- | :--- | :--- |
-| 11 | Shopify Store Spy, Product & Price API | `shopify-store-spy-product-catalog-price-b2b-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/shopify-store-spy-product-catalog-price-b2b-scraper) |
-| 12 | Greenhouse & Lever Tech Jobs Hiring API | `greenhouse-lever-tech-jobs-hiring-intent-b2b-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/greenhouse-lever-tech-jobs-hiring-intent-b2b-scraper) |
-| 13 | B2B Website Email, Social & Tech Stack API | `b2b-website-email-phone-social-links-tech-stack-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/b2b-website-email-phone-social-links-tech-stack-scraper) |
-| 14 | Y Combinator (YC) Startup Directory API | `y-combinator-yc-startup-directory-b2b-lead-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/y-combinator-yc-startup-directory-b2b-lead-scraper) |
-| 15 | Tech Startup Launches (Show HN) B2B API | `tech-startup-launches-hackernews-b2b-lead-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/tech-startup-launches-hackernews-b2b-lead-scraper) |
-| 16 | B2B Podcast Host Email & Guest PR API | `b2b-podcast-host-email-guest-sponsorship-lead-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/b2b-podcast-host-email-guest-sponsorship-lead-scraper) |
-| 17 | GitHub AI & DevTools Repo & Dev Lead API | `github-ai-devtools-repo-developer-b2b-lead-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/github-ai-devtools-repo-developer-b2b-lead-scraper) |
-| 18 | AI & Biotech R&D Scientist & Lab Lead API | `ai-biotech-research-scientist-lab-b2b-lead-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/ai-biotech-research-scientist-lab-b2b-lead-scraper) |
-| 19 | Polymarket Live Odds, Volume & Arbitrage API | `polymarket-live-odds-volume-arbitrage-prediction-api` | [Try API ↗](https://apify.com/mehdad-datalabs/polymarket-live-odds-volume-arbitrage-prediction-api) |
-| 20 | DeFi Protocol TVL & Web3 B2B Lead API | `defi-protocol-tvl-crypto-whale-web3-b2b-lead-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/defi-protocol-tvl-crypto-whale-web3-b2b-lead-scraper) |
-
----
-
-### 3. Biotech, FDA, Healthcare, GovCon & Banking B2B APIs (10 APIs)
-
-| # | API Name | Actor ID (`mehdad-datalabs/...`) | Live API & Playground |
-| :--- | :--- | :--- | :--- |
-| 21 | FDA Drug Approvals (NDA/BLA/ANDA) API | `fda-drug-approvals-biotech-catalyst-pharma-b2b-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/fda-drug-approvals-biotech-catalyst-pharma-b2b-scraper) |
-| 22 | ClinicalTrials.gov Phase 1-3 Readout API | `clinical-trials-biotech-catalyst-cro-b2b-lead-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/clinical-trials-biotech-catalyst-cro-b2b-lead-scraper) |
-| 23 | FDA 510(k) Medical Device Clearances API | `fda-510k-medical-device-clearances-medtech-b2b-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/fda-510k-medical-device-clearances-medtech-b2b-scraper) |
-| 24 | FDA Drug, Device & Food Recalls Legal API | `fda-product-recalls-safety-enforcement-b2b-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/fda-product-recalls-safety-enforcement-b2b-scraper) |
-| 25 | US Doctor, Dentist & Clinic B2B Leads API | `us-doctor-dentist-clinic-healthcare-b2b-lead-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/us-doctor-dentist-clinic-healthcare-b2b-lead-scraper) |
-| 26 | US Pharmacy, Clinical Lab & DME Leads API | `us-pharmacy-medical-lab-dme-b2b-lead-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/us-pharmacy-medical-lab-dme-b2b-lead-scraper) |
-| 27 | US Federal & DoD Contract Awards API | `us-federal-government-contract-awards-dod-b2b-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/us-federal-government-contract-awards-dod-b2b-scraper) |
-| 28 | FDIC US Bank Directory & Financials API | `fdic-us-bank-directory-deposits-assets-b2b-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/fdic-us-bank-directory-deposits-assets-b2b-scraper) |
-| 29 | CFPB Fintech & Bank Complaints API | `cfpb-fintech-bank-consumer-complaint-b2b-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/cfpb-fintech-bank-consumer-complaint-b2b-scraper) |
-| 30 | US Public Company B2B Enrichment API | `us-public-company-b2b-profile-sic-hq-phone-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/us-public-company-b2b-profile-sic-hq-phone-scraper) |
-
----
-
-### 4. AI Coding, MCP Marketplaces, Web3 & Automation Templates (11 APIs)
-
-| # | API Name | Actor ID (`mehdad-datalabs/...`) | Live API & Playground |
-| :--- | :--- | :--- | :--- |
-| 31 | Cursor Directory Plugins, MCPs & Rules API | `cursor-directory-plugins-mcp-rules-b2b-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/cursor-directory-plugins-mcp-rules-b2b-scraper) |
-| 32 | Cline & Roo Code MCP Marketplace API | `cline-mcp-marketplace-ai-plugins-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/cline-mcp-marketplace-ai-plugins-scraper) |
-| 33 | LobeHub MCP & AI Agent Plugins API | `lobehub-mcp-ai-agent-plugins-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/lobehub-mcp-ai-agent-plugins-scraper) |
-| 34 | Dify AI Marketplace & Plugin Catalog API | `dify-ai-marketplace-plugins-catalog-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/dify-ai-marketplace-plugins-catalog-scraper) |
-| 35 | Activepieces Automation Pieces & Actions API | `activepieces-automation-pieces-actions-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/activepieces-automation-pieces-actions-scraper) |
-| 36 | Composio AI Agent Toolkits & Actions API | `composio-ai-agent-toolkits-actions-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/composio-ai-agent-toolkits-actions-scraper) |
-| 37 | Dune Analytics Web3 Dashboards & Queries API | `dune-analytics-web3-dashboards-queries-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/dune-analytics-web3-dashboards-queries-scraper) |
-| 38 | Make.com Automation Templates & Apps API | `make-com-automation-templates-integrations-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/make-com-automation-templates-integrations-scraper) |
-| 39 | Vercel Templates & Next.js AI Starter API | `vercel-templates-nextjs-starter-ecosystem-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/vercel-templates-nextjs-starter-ecosystem-scraper) |
-| 40 | Langflow & Flowise AI Agent Templates API | `langflow-flowise-ai-agent-templates-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/langflow-flowise-ai-agent-templates-scraper) |
-| 41 | Supabase Ecosystem Partners & B2B Leads API | `supabase-ecosystem-partners-integrations-b2b-scraper` | [Try API ↗](https://apify.com/mehdad-datalabs/supabase-ecosystem-partners-integrations-b2b-scraper) |
-
----
-
-## 🐍 Python Quickstart (`quickstart.py`)
-
-Install the official Apify Python client:
-
-    pip install apify-client pandas
-
-Run any of the 41 APIs in 10 lines of Python (get your free API token at [console.apify.com/settings/integrations](https://console.apify.com/settings/integrations)):
-
-    from apify_client import ApifyClient
-    import pandas as pd
-
-    client = ApifyClient("YOUR_APIFY_API_TOKEN")
-
-    # Example: Extract Shopify Store Product Catalog & Pricing
-    run = client.actor("mehdad-datalabs/shopify-store-spy-product-catalog-price-b2b-scraper").call(
-        run_input={"storeDomains": ["allbirds.com"], "maxProductsPerStore": 25}
-    )
-
-    df = pd.DataFrame(client.dataset(run["defaultDatasetId"]).list_items().items)
-    print(df.head())
-
----
-
-## 📄 License & Support
-
-MIT License. Built by [Mehdad DataLabs](https://apify.com/mehdad-datalabs).
+## Quick Setup
+1. Download any `.json` file above and import it into n8n (**Workflows -> Import from File**).
+2. Open the **Set Config** node and paste your `YOUR_APIFY_API_TOKEN` from [Apify Console](https://console.apify.com/account/integrations).
+3. Connect your Telegram or Google Sheets credentials and click **Execute workflow**.
