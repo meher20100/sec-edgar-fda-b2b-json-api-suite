@@ -1,3 +1,25 @@
+# SEC EDGAR, FDA Biotech & B2B Intelligence MCP Server (`mcp_server.py`)
+
+An open-source Python **Model Context Protocol (MCP)** server built with the official [`mcp` Python SDK (`FastMCP`)](https://github.com/modelcontextprotocol/python-sdk) in [`mcp_server.py`](./mcp_server.py) with a ready-to-run [`Dockerfile`](./Dockerfile).
+
+## 🛠️ Implemented MCP Tools (`mcp_server.py`)
+| Tool Name | Parameters | Description |
+| :--- | :--- | :--- |
+| `get_sec_form4_insider_trades` | `tickers: list[str]`, `max_filings_per_ticker: int` | Fetch parsed US SEC Form 4 insider buying & selling filings |
+| `get_sec_13f_hedge_fund_holdings` | `institutions: list[str]`, `max_holdings: int` | Fetch US SEC Form 13F institutional hedge fund holdings |
+| `get_fda_drug_approvals` | `max_results: int` | Fetch recent US FDA NDA/BLA drug approvals & biotech catalysts |
+| `get_shopify_store_catalog` | `store_domains: list[str]`, `max_products_per_store: int` | Extract Shopify competitor product catalogs, prices & discounts |
+| `get_yc_startups` | `industry_or_keyword: str`, `max_results: int` | Search funded Y Combinator startups by industry & hiring status |
+| `enrich_b2b_websites` | `websites: list[str]` | Enrich B2B domains with emails, phones, social links & tech stack |
+
+## 🚀 Running the MCP Server Locally or via Docker
+
+### Local (stdio)
+```bash
+pip install -r requirements.txt
+export APIFY_TOKEN="your_apify_api_token"
+python mcp_server.py
+```
 # 📊 41-API SEC EDGAR, FDA Biotech, E-Commerce, Crypto & B2B Lead Suite (Python, REST & MCP)
 
 A collection of **41 high-speed, cloud-hosted REST APIs and Claude/Cursor MCP Servers** for extracting structured JSON, CSV, and Excel datasets from SEC EDGAR, US FDA and ClinicalTrials.gov, Shopify E-Commerce, Greenhouse and Lever Tech Jobs, Polymarket and DeFiLlama, Y Combinator and HackerNews, Apple Podcasts RSS, GitHub and OpenAlex, Verified US B2B Healthcare and Banking Registries, and **Cursor, Cline, LobeHub, Dify, Activepieces, Composio, Dune, Make.com, Vercel, Langflow & Supabase Ecosystems**.
