@@ -20,6 +20,26 @@ pip install -r requirements.txt
 export APIFY_TOKEN="your_apify_api_token"
 python mcp_server.py
 ```
+### Docker
+```bash
+docker build -t sec-edgar-fda-b2b-mcp .
+docker run -i --rm -e APIFY_TOKEN="your_apify_api_token" sec-edgar-fda-b2b-mcp
+```
+
+### Claude Desktop / Cursor Config (`mcp.json`)
+```json
+{
+  "mcpServers": {
+    "sec-edgar-fda-b2b": {
+      "command": "python",
+      "args": ["mcp_server.py"],
+      "env": {
+        "APIFY_TOKEN": "your_apify_api_token"
+      }
+    }
+  }
+}
+```
 # 📊 41-API SEC EDGAR, FDA Biotech, E-Commerce, Crypto & B2B Lead Suite (Python, REST & MCP)
 
 A collection of **41 high-speed, cloud-hosted REST APIs and Claude/Cursor MCP Servers** for extracting structured JSON, CSV, and Excel datasets from SEC EDGAR, US FDA and ClinicalTrials.gov, Shopify E-Commerce, Greenhouse and Lever Tech Jobs, Polymarket and DeFiLlama, Y Combinator and HackerNews, Apple Podcasts RSS, GitHub and OpenAlex, Verified US B2B Healthcare and Banking Registries, and **Cursor, Cline, LobeHub, Dify, Activepieces, Composio, Dune, Make.com, Vercel, Langflow & Supabase Ecosystems**.
