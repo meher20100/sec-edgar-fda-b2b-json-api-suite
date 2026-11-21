@@ -1,24 +1,24 @@
-# Automating Phase 1, 2 & 3 Clinical Trial Readout Catalysts & CRO B2B Leads in Python & Claude MCP (Nov 19, 2026)
+# Automating FDA Class I, II & III Product Recalls & Mass-Tort Litigation Leads in Python & Claude MCP (Nov 21, 2026)
 
-**Read on Dev.to:** [https://dev.to/mehdadsharifi/automating-phase-1-2-3-clinical-trial-readout-catalysts-cro-b2b-leads-in-python-claude-mcp-2fg7](https://dev.to/mehdadsharifi/automating-phase-1-2-3-clinical-trial-readout-catalysts-cro-b2b-leads-in-python-claude-mcp-2fg7)
+**Read on Dev.to:** [https://dev.to/mehdadsharifi/automating-fda-class-i-ii-iii-product-recalls-mass-tort-litigation-leads-in-python-claude-4oc5](https://dev.to/mehdadsharifi/automating-fda-class-i-ii-iii-product-recalls-mass-tort-litigation-leads-in-python-claude-4oc5)
 
-Extracting and normalizing **Phase 1, 2 & 3 Clinical Trial Readout Catalysts & CRO B2B Leads** is one of the highest-leverage data pipelines for quantitative researchers, B2B growth engineers, and AI agent builders—especially for **extracting active recruiting clinical trials, primary completion readout dates, and study contact emails/phones**.
+Extracting and normalizing **FDA Class I, II & III Product Recalls & Mass-Tort Litigation Leads** is one of the highest-leverage data pipelines for quantitative researchers, B2B growth engineers, and AI agent builders—especially for **monitoring critical Class I medical device, pharmaceutical, and food safety recalls for law firms and QA teams**.
 
-Instead of maintaining fragile local parsers or proxy networks, you can pull structured **JSON, CSV, or Excel** datasets in seconds using the **[ClinicalTrials.gov Phase 1-3 Biotech Catalyst & B2B Lead API](https://apify.com/mehdad-datalabs/clinical-trials-biotech-catalyst-cro-b2b-lead-scraper)** by **Mehdad DataLabs**.
+Instead of maintaining fragile local parsers or proxy networks, you can pull structured **JSON, CSV, or Excel** datasets in seconds using the **[FDA Drug, Device & Food Recall Enforcement & Legal Lead API](https://apify.com/mehdad-datalabs/fda-product-recalls-safety-enforcement-b2b-scraper)** by **Mehdad DataLabs**.
 
 ---
 
-## Live Market & Regulatory Activity Snapshot (Nov 19, 2026)
+## Live Market & Regulatory Activity Snapshot (Nov 21, 2026)
 
-Here is a live sample of recent activity across tracked benchmark tickers (LLY, MRNA, VRTX, REGN):
+Here is a live sample of recent activity across tracked benchmark tickers (ABT, BAX, MDT, PFE):
 
-**1. ELI LILLY & Co (LLY)** — Industry: Pharmaceutical Preparations | Latest Filing: Form 4 (Filed: 2026-11-17)
+**1. ABBOTT LABORATORIES (ABT)** — Industry: Pharmaceutical Preparations | Latest Filing: Form 8-K (Filed: 2026-11-16)
 
-**2. Moderna, Inc. (MRNA)** — Industry: Biological Products, (No Diagnostic Substances) | Latest Filing: Form 4 (Filed: 2026-11-18)
+**2. BAXTER INTERNATIONAL INC (BAX)** — Industry: Surgical & Medical Instruments & Apparatus | Latest Filing: Form 8-K (Filed: 2026-11-19)
 
-**3. VERTEX PHARMACEUTICALS INC / MA (VRTX)** — Industry: Pharmaceutical Preparations | Latest Filing: Form 4 (Filed: 2026-11-18)
+**3. Medtronic plc (MDT)** — Industry: Electromedical & Electrotherapeutic Apparatus | Latest Filing: Form 4 (Filed: 2026-11-04)
 
-**4. REGENERON PHARMACEUTICALS, INC. (REGN)** — Industry: Pharmaceutical Preparations | Latest Filing: Form 4 (Filed: 2026-11-18)
+**4. PFIZER INC (PFE)** — Industry: Pharmaceutical Preparations | Latest Filing: Form 4 (Filed: 2026-11-16)
 
 ---
 
@@ -30,7 +30,7 @@ Install the official Python client:
 pip install apify-client pandas
 ```
 
-Call the **[ClinicalTrials.gov Phase 1-3 Biotech Catalyst & B2B Lead API](https://apify.com/mehdad-datalabs/clinical-trials-biotech-catalyst-cro-b2b-lead-scraper)** endpoint directly from Python:
+Call the **[FDA Drug, Device & Food Recall Enforcement & Legal Lead API](https://apify.com/mehdad-datalabs/fda-product-recalls-safety-enforcement-b2b-scraper)** endpoint directly from Python:
 
 ```python
 from apify_client import ApifyClient
@@ -39,7 +39,7 @@ import pandas as pd
 client = ApifyClient("YOUR_APIFY_API_TOKEN")
 
 # Run the Actor and wait for results
-run = client.actor("mehdad-datalabs/clinical-trials-biotech-catalyst-cro-b2b-lead-scraper").call()
+run = client.actor("mehdad-datalabs/fda-product-recalls-safety-enforcement-b2b-scraper").call()
 
 # Load clean JSON records into a Pandas DataFrame
 items = client.dataset(run["defaultDatasetId"]).list_items().items
@@ -53,11 +53,11 @@ print(df.head())
 
 This Actor is natively compatible with Apify's **Model Context Protocol (MCP)** server (`@apify/actors-mcp-server`). You can also trigger it on a daily schedule inside **n8n, Make, Clay, or Zapier** to route real-time alerts into Slack, Telegram, HubSpot, or Google Sheets.
 
-**1. Live API Playground:** [ClinicalTrials.gov Phase 1-3 Biotech Catalyst & B2B Lead API](https://apify.com/mehdad-datalabs/clinical-trials-biotech-catalyst-cro-b2b-lead-scraper)
+**1. Live API Playground:** [FDA Drug, Device & Food Recall Enforcement & Legal Lead API](https://apify.com/mehdad-datalabs/fda-product-recalls-safety-enforcement-b2b-scraper)
 
-**2. Related API:** [FDA 510(k) Medical Device Clearances & MedTech B2B Lead API](https://apify.com/mehdad-datalabs/fda-510k-medical-device-clearances-medtech-b2b-scraper)
+**2. Related API:** [US Doctor, Dentist & Medical Clinic B2B Lead Scraper API](https://apify.com/mehdad-datalabs/us-doctor-dentist-clinic-healthcare-b2b-lead-scraper)
 
-**3. Related API:** [FDA Drug, Device & Food Recall Enforcement & Legal Lead API](https://apify.com/mehdad-datalabs/fda-product-recalls-safety-enforcement-b2b-scraper)
+**3. Related API:** [US Pharmacy, Clinical Lab & Medical Supply B2B Lead API](https://apify.com/mehdad-datalabs/us-pharmacy-medical-lab-dme-b2b-lead-scraper)
 
 **4. Open-Source Python SDK & Full 41-API Directory on GitHub:** [https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite](https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite)
 
