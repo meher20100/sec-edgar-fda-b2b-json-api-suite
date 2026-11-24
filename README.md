@@ -1,5 +1,5 @@
 # SEC EDGAR, FDA Biotech & B2B Intelligence MCP Server (`mcp_server.py`)
-
+[![meher20100/sec-edgar-fda-b2b-json-api-suite MCP server](https://glama.ai/mcp/servers/meher20100/sec-edgar-fda-b2b-json-api-suite/badges/score.svg)](https://glama.ai/mcp/servers/meher20100/sec-edgar-fda-b2b-json-api-suite)
 An open-source Python **Model Context Protocol (MCP)** server built with the official [`mcp` Python SDK (`FastMCP`)](https://github.com/modelcontextprotocol/python-sdk) in [`mcp_server.py`](./mcp_server.py) with a ready-to-run [`Dockerfile`](./Dockerfile).
 
 ## 🛠️ Implemented MCP Tools (`mcp_server.py`)
