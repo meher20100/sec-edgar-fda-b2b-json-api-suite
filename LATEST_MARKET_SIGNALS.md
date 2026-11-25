@@ -1,18 +1,24 @@
-# Automating US Commercial & Community Bank Directory, Assets, Deposits & ROA/ROE in Python & Claude MCP (Nov 24, 2026)
+# Automating Fintech, Crypto & Bank Consumer Complaint & Regulatory Risk Intelligence in Python & Claude MCP (Nov 25, 2026)
 
-**Read on Dev.to:** [https://dev.to/mehdadsharifi/automating-us-commercial-community-bank-directory-assets-deposits-roaroe-in-python-claude-13li](https://dev.to/mehdadsharifi/automating-us-commercial-community-bank-directory-assets-deposits-roaroe-in-python-claude-13li)
+**Read on Dev.to:** [https://dev.to/mehdadsharifi/automating-fintech-crypto-bank-consumer-complaint-regulatory-risk-intelligence-in-python--1jah](https://dev.to/mehdadsharifi/automating-fintech-crypto-bank-consumer-complaint-regulatory-risk-intelligence-in-python--1jah)
 
-Extracting and normalizing **US Commercial & Community Bank Directory, Assets, Deposits & ROA/ROE** is one of the highest-leverage data pipelines for quantitative researchers, B2B growth engineers, and AI agent builders—especially for **filtering every FDIC-insured community and regional bank by total assets ($), deposits ($), and ROA/ROE %**.
+Extracting and normalizing **Fintech, Crypto & Bank Consumer Complaint & Regulatory Risk Intelligence** is one of the highest-leverage data pipelines for quantitative researchers, B2B growth engineers, and AI agent builders—especially for **tracking consumer fraud, account-freeze disputes, and regulatory risk disclosures across fintechs and banks**.
 
-Instead of maintaining fragile local parsers or proxy networks, you can pull structured **JSON, CSV, or Excel** datasets in seconds using the **[FDIC US Bank Directory, Deposits, Assets & B2B Lead API](https://apify.com/mehdad-datalabs/fdic-us-bank-directory-deposits-assets-b2b-scraper)** by **Mehdad DataLabs**.
+Instead of maintaining fragile local parsers or proxy networks, you can pull structured **JSON, CSV, or Excel** datasets in seconds using the **[CFPB Fintech & Bank Consumer Complaint Intelligence API](https://apify.com/mehdad-datalabs/cfpb-fintech-bank-consumer-complaint-b2b-scraper)** by **Mehdad DataLabs**.
 
 ---
 
-## Live Market & Regulatory Activity Snapshot (Nov 24, 2026)
+## Live Market & Regulatory Activity Snapshot (Nov 25, 2026)
 
-Here is a live sample of recent activity across tracked benchmark tickers (JPM, BAC, WFC, C):
+Here is a live sample of recent activity across tracked benchmark tickers (COIN, HOOD, PYPL, SOFI):
 
-Live SEC EDGAR feed active.
+**1. Coinbase Global, Inc. (COIN)** — Industry: Finance Services | Latest Filing: Form 4 (Filed: 2026-11-25)
+
+**2. Robinhood Markets, Inc. (HOOD)** — Industry: Security Brokers, Dealers & Flotation Companies | Latest Filing: Form 4 (Filed: 2026-11-19)
+
+**3. PayPal Holdings, Inc. (PYPL)** — Industry: Services-Business Services, NEC | Latest Filing: Form 8-K (Filed: 2026-11-20)
+
+**4. SoFi Technologies, Inc. (SOFI)** — Industry: Finance Services | Latest Filing: Form 4 (Filed: 2026-11-23)
 
 ---
 
@@ -24,7 +30,7 @@ Install the official Python client:
 pip install apify-client pandas
 ```
 
-Call the **[FDIC US Bank Directory, Deposits, Assets & B2B Lead API](https://apify.com/mehdad-datalabs/fdic-us-bank-directory-deposits-assets-b2b-scraper)** endpoint directly from Python:
+Call the **[CFPB Fintech & Bank Consumer Complaint Intelligence API](https://apify.com/mehdad-datalabs/cfpb-fintech-bank-consumer-complaint-b2b-scraper)** endpoint directly from Python:
 
 ```python
 from apify_client import ApifyClient
@@ -33,7 +39,7 @@ import pandas as pd
 client = ApifyClient("YOUR_APIFY_API_TOKEN")
 
 # Run the Actor and wait for results
-run = client.actor("mehdad-datalabs/fdic-us-bank-directory-deposits-assets-b2b-scraper").call()
+run = client.actor("mehdad-datalabs/cfpb-fintech-bank-consumer-complaint-b2b-scraper").call()
 
 # Load clean JSON records into a Pandas DataFrame
 items = client.dataset(run["defaultDatasetId"]).list_items().items
@@ -47,11 +53,11 @@ print(df.head())
 
 This Actor is natively compatible with Apify's **Model Context Protocol (MCP)** server (`@apify/actors-mcp-server`). You can also trigger it on a daily schedule inside **n8n, Make, Clay, or Zapier** to route real-time alerts into Slack, Telegram, HubSpot, or Google Sheets.
 
-**1. Live API Playground:** [FDIC US Bank Directory, Deposits, Assets & B2B Lead API](https://apify.com/mehdad-datalabs/fdic-us-bank-directory-deposits-assets-b2b-scraper)
+**1. Live API Playground:** [CFPB Fintech & Bank Consumer Complaint Intelligence API](https://apify.com/mehdad-datalabs/cfpb-fintech-bank-consumer-complaint-b2b-scraper)
 
-**2. Related API:** [CFPB Fintech & Bank Consumer Complaint Intelligence API](https://apify.com/mehdad-datalabs/cfpb-fintech-bank-consumer-complaint-b2b-scraper)
+**2. Related API:** [US Public Company B2B Directory, SIC & HQ Phone API](https://apify.com/mehdad-datalabs/us-public-company-b2b-profile-sic-hq-phone-scraper)
 
-**3. Related API:** [US Public Company B2B Directory, SIC & HQ Phone API](https://apify.com/mehdad-datalabs/us-public-company-b2b-profile-sic-hq-phone-scraper)
+**3. Related API:** [Shopify Store Spy, Product Catalog & Price Scraper API](https://apify.com/mehdad-datalabs/shopify-store-spy-product-catalog-price-b2b-scraper)
 
 **4. Open-Source Python SDK & Full 41-API Directory on GitHub:** [https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite](https://github.com/meher20100/sec-edgar-fda-b2b-json-api-suite)
 
